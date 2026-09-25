@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hassan Nasir — Unity &amp; VR Developer</title>
+<link rel="icon" href="https://scontent-yyz1-1.oculuscdn.com/v/t64.5771-25/499310667_1295173888909992_757454759322761710_n.webp?stp=dst-webp_s720x720&_nc_cat=101&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=WKdCoUeh-bEQ7kNvwE0Gn98&_nc_oc=AdqCMh4dFYMYqNn-F7uRs3NXLb6-y4dneKkhVY4OgF3LAeBACQhicqfOOsHgy9RGTTc&_nc_zt=3&_nc_ht=scontent-yyz1-1.oculuscdn.com&_nc_ss=7b20f&oh=00_AQJoQ5_a5eRuszhNLB_Zqj1rXa5wCxzG101v1OEVkzDeIQ&oe=6ABC0219">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0e12;
+    --panel:#12161c;
+    --panel-2:#161b22;
+    --border:#232a33;
+    --text:#e9edf1;
+    --text-dim:#8c97a3;
+    --accent:#4eebc0;
+    --accent-dim:#2a5f52;
+    --amber:#f2a93c;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.mono-label{font-family:'Space Grotesk',sans-serif;}
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:120px 0 90px;
+    overflow:hidden;
+    border-bottom:1px solid var(--border);
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(78,235,192,0.10), transparent 60%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 64px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 64px);
+    mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  }
+  .hero-inner{position:relative;z-index:1;}
+  .kicker{
+    color:var(--accent);
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:0.02em;
+    margin:0 0 18px;
+  }
+  .hero h1{
+    font-size:clamp(38px,6vw,64px);
+    line-height:1.05;
+    margin:0 0 20px;
+    font-weight:700;
+    max-width:14ch;
+  }
+  .hero p{
+    color:var(--text-dim);
+    font-size:18px;
+    max-width:56ch;
+    margin:0 0 34px;
+  }
+  .hero-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .pill{
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:var(--text-dim);
+    font-size:13px;
+    padding:7px 14px;
+    border-radius:100px;
+  }
+
+  /* ---------- Sections ---------- */
+  section.projects{padding:80px 0;}
+  section.projects + section.projects{
+    border-top:1px solid var(--border);
+  }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:20px;
+    margin-bottom:36px;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-size:28px;
+    margin:0;
+    font-weight:600;
+  }
+  .section-head span{
+    color:var(--text-dim);
+    font-size:14px;
+    max-width:38ch;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:22px;
+  }
+
+  .card{
+    display:flex;
+    flex-direction:column;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    text-decoration:none;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .card:hover{
+    border-color:var(--accent-dim);
+    transform:translateY(-3px);
+  }
+  .card .thumb{
+    aspect-ratio:16/9;
+    background:var(--panel-2);
+    overflow:hidden;
+  }
+  .card .thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .card .body{
+    padding:18px 18px 20px;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+  }
+  .card .tag{
+    font-size:11.5px;
+    color:var(--accent);
+    font-weight:600;
+    letter-spacing:0.02em;
+    margin-bottom:8px;
+  }
+  .card.mobile .tag{color:var(--amber);}
+  .card h3{
+    font-size:17px;
+    margin:0 0 8px;
+    font-weight:600;
+  }
+  .card p{
+    font-size:14px;
+    color:var(--text-dim);
+    margin:0;
+    flex:1;
+  }
+  .card .link-row{
+    margin-top:14px;
+    font-size:13px;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .card:hover .link-row{color:var(--accent);}
+  .card.mobile:hover .link-row{color:var(--amber);}
+
+  /* ---------- Skills ---------- */
+  .skills{
+    padding:70px 0;
+    border-top:1px solid var(--border);
+  }
+  .skills h2{font-size:24px;margin:0 0 24px;font-weight:600;}
+  .skill-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .skill-item{
+    background:var(--panel);
+    padding:20px;
+  }
+  .skill-item h4{
+    margin:0 0 6px;
+    font-size:14.5px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+  }
+  .skill-item p{
+    margin:0;
+    font-size:13px;
+    color:var(--text-dim);
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:50px 0 70px;
+    border-top:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  footer .who{font-size:14px;color:var(--text-dim);}
+  footer .who strong{color:var(--text);}
+  footer .links{
+    display:flex;
+    gap:20px;
+    font-size:14px;
+  }
+  footer .links a{
+    color:var(--text-dim);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+  }
+  footer .links a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+
+  @media (max-width:600px){
+    .hero{padding:90px 0 60px;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <p class="kicker">Unity &amp; VR Developer</p>
+      <h1>Hassan Nasir</h1>
+      <p>I build gameplay systems and immersive VR experiences in Unity — from Meta Quest titles with physics-based interaction to shipped mobile games. Based in Lahore, Pakistan.</p>
+      <div class="hero-meta">
+        <span class="pill">5+ years experience</span>
+        <span class="pill">Unity / C#</span>
+        <span class="pill">Meta Quest &amp; BNG Framework</span>
+        <span class="pill">Lahore, Pakistan</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>VR Experiences</h2>
+        <span>Published on the Meta Horizon Store for Quest headsets.</span>
+      </div>
+      <div class="grid">
+
+        <a class="card" href="https://www.meta.com/experiences/i-am-goal-keeper-vr-football-fun/1755947372440616/" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://scontent-yyz1-1.oculuscdn.com/v/t64.5771-25/499310667_1295173888909992_757454759322761710_n.webp?stp=dst-webp_s720x720&_nc_cat=101&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=WKdCoUeh-bEQ7kNvwE0Gn98&_nc_oc=AdqCMh4dFYMYqNn-F7uRs3NXLb6-y4dneKkhVY4OgF3LAeBACQhicqfOOsHgy9RGTTc&_nc_zt=3&_nc_ht=scontent-yyz1-1.oculuscdn.com&_nc_ss=7b20f&oh=00_AQJoQ5_a5eRuszhNLB_Zqj1rXa5wCxzG101v1OEVkzDeIQ&oe=6ABC0219" alt="I am Goal Keeper - VR Football Fun" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">Meta Quest</p>
+            <h3>I am Goal Keeper</h3>
+            <p>Block powerful shots and defend your goal in fast-paced VR football action.</p>
+            <div class="link-row">View on Meta Store</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.meta.com/experiences/speed-line-vr-train-simulator/1755919549110065/" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://scontent-yyz1-1.oculuscdn.com/v/t64.5771-25/499622276_967207719620514_1601310717998236457_n.webp?stp=dst-webp_s720x720&_nc_cat=109&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=aSMBMOuuIT0Q7kNvwGs1DJs&_nc_oc=Adp6RRvz1ArJZBpeXqw_KD5Kt1JMSyUuizke2x1gF8qLM7ZL9Nw1ZHGSpWKZoW4oZeM&_nc_zt=3&_nc_ht=scontent-yyz1-1.oculuscdn.com&_nc_ss=7b20f&oh=00_AQIJK9wFO6ermLURAQI0XwPQLgLhevLa11RFqFRRQC9ScQ&oe=6ABBFED3" alt="Speed Line - VR Train Simulator" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">Meta Quest</p>
+            <h3>Speed Line — VR Train Simulator</h3>
+            <p>Drive powerful trains and explore railway routes in realistic VR rail simulation.</p>
+            <div class="link-row">View on Meta Store</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.meta.com/experiences/buzz-wire-challenge-vr-fun-game/1779500220085331/" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://scontent-yyz1-1.oculuscdn.com/v/t64.5771-25/499620817_1951812118835423_2135795146730920817_n.webp?stp=dst-webp_s720x720&_nc_cat=111&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=2VgMpECB5SIQ7kNvwFFmPZr&_nc_oc=AdrY_SIrGFQqjzS3umusfYRVeLGQoT_3t-0W15W05gCQXw4-rUoAaXuALQJe_e5DxM8&_nc_zt=3&_nc_ht=scontent-yyz1-1.oculuscdn.com&_nc_ss=7b20f&oh=00_AQLn3UliWK5MXitifv3VMRobqpl3QIqN8IqPons3PmWZ0w&oe=6ABBFAF9" alt="Buzz Wire Challenge VR" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">Meta Quest</p>
+            <h3>Buzz Wire Challenge</h3>
+            <p>A precision game testing steady hands — guide a loop through wire courses without touching the wire.</p>
+            <div class="link-row">View on Meta Store</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.meta.com/experiences/motovrx-bike-racing-game/5480786012038792/" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://scontent-yyz1-1.oculuscdn.com/v/t64.5771-25/491823910_1315778750231598_2625862405025160950_n.webp?stp=dst-webp_s720x720&_nc_cat=108&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=9HobQrE0xH0Q7kNvwGPtiCd&_nc_oc=AdrzDoMZqxcQtGMn-mIbyfIRpOcogGWO1y1q2KBrJJjz4GRtgY_nnuUmNrujPJMhhp8&_nc_zt=3&_nc_ht=scontent-yyz1-1.oculuscdn.com&_nc_ss=7b20f&oh=00_AQLl-NsVPktBPOa7hcMuFO6DpTocUs9o4gpWaW_z8-u0_Q&oe=6ABBEEA0" alt="MotoVRX - Bike Racing Game" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">Meta Quest</p>
+            <h3>MotoVRX</h3>
+            <p>Classic 3D bike racing rebuilt for VR — gear up for a real motorcycle racing experience.</p>
+            <div class="link-row">View on Meta Store</div>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.meta.com/experiences/slapvrx-slap-fighting/5973147676108175/" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://scontent-yyz1-1.oculuscdn.com/v/t64.5771-25/39031332_1205372026754153_7942361562441170634_n.webp?stp=dst-webp_s720x720&_nc_cat=111&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=7PGkHaUijwMQ7kNvwFD3GfI&_nc_oc=AdoHDOcq2AbWVbTkb_zg7AkwRv_X2OLRHu_DxaBVDMLDF8KtwpAlccFLudvIZpKoVQE&_nc_zt=3&_nc_ht=scontent-yyz1-1.oculuscdn.com&_nc_ss=7b20f&oh=00_AQIVQJyAJl2dgO0iI8NfHA2VvcAmfwSxZDHlq4betVsyww&oe=6ABBF2E3" alt="SlapVRX - Slap Fighting" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">Meta Quest</p>
+            <h3>SlapVRX</h3>
+            <p>Adrenaline-fueled slap-fighting duels — quick reflexes against opponents from around the world.</p>
+            <div class="link-row">View on Meta Store</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Mobile Games</h2>
+        <span>Published on the App Store and Google Play.</span>
+      </div>
+      <div class="grid">
+
+        <a class="card mobile" href="https://apps.apple.com/us/app/police-sniffer-dog-duty-game/id1082271296" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/be/0d/cc/be0dcce0-bef1-8e30-f125-e1228b776882/AppIcon-0-0-1x_U007epad-0-85-220.png/1200x630wa.jpg" alt="Police Sniffer Dog Duty Game" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">iOS</p>
+            <h3>Police Sniffer Dog Duty Game</h3>
+            <p>Play as a police sniffer dog tracking smugglers through a realistic airport terminal.</p>
+            <div class="link-row">View on the App Store</div>
+          </div>
+        </a>
+
+        <a class="card mobile" href="https://play.google.com/store/apps/details?id=com.rvx.horse.resort.horsegames&hl=en" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://play-lh.googleusercontent.com/QzgjVKFcAsCQlEcSWlHED32lLtLZtwl2lfrILxUwCRDZCark39Q8YG7tid_Wmo1nyKwgMmJt1vVkUmhevKgQkj8" alt="My Horse Resort - Horse Games" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">Android</p>
+            <h3>My Horse Resort</h3>
+            <p>Care for, groom, race, and bond with horses across a full horse-lifestyle sim.</p>
+            <div class="link-row">View on Google Play</div>
+          </div>
+        </a>
+
+        <a class="card mobile" href="https://play.google.com/store/apps/details?id=com.rvx.jungle.sniper.hunting&hl=en" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://play-lh.googleusercontent.com/AINlfmq7KLdvvLNBkUKnhUv3dzoDJjBjxg7BfF13xOIEJFoLYEkRzCT57J_QdPBjuxWCa0qb7vQ5K900e6R_TQ=s0-br30" alt="Jungle Sniper Hunting 3D" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">Android · 10M+ downloads</p>
+            <h3>Jungle Sniper Hunting 3D</h3>
+            <p>Sniper-hunting action across a dangerous jungle, with multiple animals and difficulty levels.</p>
+            <div class="link-row">View on Google Play</div>
+          </div>
+        </a>
+
+        <a class="card mobile" href="https://apps.apple.com/at/app/slingshot-dog-stunts-game/id6449510230" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/49/7b/7a/497b7abc-727a-9fb5-71fd-ae828d6bae37/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/1200x630wa.jpg" alt="SlingShot Dog Stunts Game" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">iOS</p>
+            <h3>SlingShot Dog Stunts</h3>
+            <p>Physics-based stunt game — launch a skating dog through target-landing courses with a slingshot.</p>
+            <div class="link-row">View on the App Store</div>
+          </div>
+        </a>
+
+        <a class="card mobile" href="https://play.google.com/store/apps/details?id=com.MJHProductions.CHOMP" target="_blank" rel="noopener">
+          <div class="thumb"><img src="https://play-lh.googleusercontent.com/46ZHgqpk6_5TrsGWMEGgTam-Jm415bsA7LySa49B4oRqWn_DcbINMr8GI7JvVyKn6jrQXSVpOdbFFjLr7UT3=s0-br30" alt="CHOMP!" loading="lazy"></div>
+          <div class="body">
+            <p class="tag">Android</p>
+            <h3>CHOMP!</h3>
+            <p>An arcade bite-and-grow game — chomp food, grow bigger, and explode in a burst of goo.</p>
+            <div class="link-row">View on Google Play</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="skills">
+    <div class="wrap">
+      <h2>What I work with</h2>
+      <div class="skill-grid">
+        <div class="skill-item"><h4>Unity &amp; C#</h4><p>Gameplay systems, clean architecture, editor tooling.</p></div>
+        <div class="skill-item"><h4>VR / XR</h4><p>Meta Quest development, BNG Framework, hand &amp; controller interaction.</p></div>
+        <div class="skill-item"><h4>Physics interaction</h4><p>Physics-based mechanics for grabbing, tools, and object manipulation.</p></div>
+        <div class="skill-item"><h4>Mobile optimization</h4><p>Performance tuning for Android and iOS shipped titles.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <div class="who"><strong>Hassan Nasir</strong> — Unity &amp; VR Developer, Lahore, Pakistan</div>
+      <div class="links">
+        <a href="https://www.behance.net/hassannasir9" target="_blank" rel="noopener">Behance</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
